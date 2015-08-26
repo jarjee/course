@@ -1,7 +1,7 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE InstanceSigs        #-}
+{-# LANGUAGE NoImplicitPrelude   #-}
+{-# LANGUAGE RebindableSyntax    #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE InstanceSigs #-}
-{-# LANGUAGE RebindableSyntax #-}
 
 module Course.Bind(
   Bind(..)
@@ -10,13 +10,13 @@ module Course.Bind(
 , (<=<)
 ) where
 
-import Course.Core
-import Course.Functor
-import Course.Apply(Apply)
-import Course.Id
-import Course.List
-import Course.Optional
-import qualified Prelude as P
+import           Course.Apply    (Apply)
+import           Course.Core
+import           Course.Functor
+import           Course.Id
+import           Course.List
+import           Course.Optional
+import qualified Prelude         as P
 
 -- | All instances of the `Bind` type-class must satisfy one law. This law
 -- is not checked by the compiler. This law is given as:
@@ -68,8 +68,8 @@ infixr 1 =<<
   f (a -> b)
   -> f a
   -> f b
-(<*>) =
-  error "todo: Course.Bind#(<*>)"
+(<*>) a b =
+    (<$> b) =<< a
 
 infixl 4 <*>
 
@@ -82,8 +82,7 @@ instance Bind Id where
     (a -> Id b)
     -> Id a
     -> Id b
-  (=<<) =
-    error "todo: Course.Bind (=<<)#instance Id"
+  (=<<) f (Id a) = f a
 
 -- | Binds a function on a List.
 --
@@ -94,8 +93,7 @@ instance Bind List where
     (a -> List b)
     -> List a
     -> List b
-  (=<<) =
-    error "todo: Course.Bind (=<<)#instance List"
+  (=<<) = flatMap
 
 -- | Binds a function on an Optional.
 --
@@ -106,8 +104,8 @@ instance Bind Optional where
     (a -> Optional b)
     -> Optional a
     -> Optional b
-  (=<<) =
-    error "todo: Course.Bind (=<<)#instance Optional"
+  (=<<) f (Full a) = f a
+  (=<<) _ (Empty) = Empty
 
 -- | Binds a function on the reader ((->) t).
 --
@@ -115,11 +113,10 @@ instance Bind Optional where
 -- 119
 instance Bind ((->) t) where
   (=<<) ::
-    (a -> ((->) t b))
-    -> ((->) t a)
-    -> ((->) t b)
-  (=<<) =
-    error "todo: Course.Bind (=<<)#instance ((->) t)"
+    (a -> (->) t b)
+    -> (->) t a
+    -> (->) t b
+  (=<<) f a t = f (a t) t
 
 -- | Flattens a combined structure to a single structure.
 --
@@ -138,8 +135,7 @@ join ::
   Bind f =>
   f (f a)
   -> f a
-join =
-  error "todo: Course.Bind#join"
+join = (=<<) id
 
 -- | Implement a flipped version of @(=<<)@, however, use only
 -- @join@ and @(<$>)@.
@@ -168,8 +164,7 @@ infixl 1 >>=
   -> (a -> f b)
   -> a
   -> f c
-(<=<) =
-  error "todo: Course.Bind#(<=<)"
+(<=<) b a e = a e >>= b
 
 infixr 1 <=<
 
