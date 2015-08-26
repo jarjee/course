@@ -1,10 +1,10 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE NoImplicitPrelude   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module Course.Person where
 
-import Course.Core
-import Course.List
+import           Course.Core
+import           Course.List
 
 -- Suppose we have a data structure to represent a person. The person data structure has these attributes:
 --     * Age: positive integer
@@ -13,10 +13,10 @@ import Course.List
 --     * Smoker: character that must be 'y' or 'n'
 --     * Phone: string of digits, dots or hyphens but must start with a digit and end with a hash (#)
 data Person = Person {
-  age :: Int,
+  age       :: Int,
   firstName :: Chars,
-  surname :: Chars,
-  smoker :: Char,
-  phone :: Chars
+  surname   :: Chars,
+  smoker    :: Char,
+  phone     :: Chars
 } deriving (Eq, Show)
 

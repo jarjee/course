@@ -1,13 +1,13 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE NoImplicitPrelude   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module Course.Compose where
 
-import Course.Core
-import Course.Functor
-import Course.Apply
-import Course.Applicative
-import Course.Bind
+import           Course.Applicative
+import           Course.Apply
+import           Course.Bind
+import           Course.Core
+import           Course.Functor
 
 -- Exactly one of these exercises will not be possible to achieve. Determine which.
 

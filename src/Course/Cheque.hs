@@ -1,6 +1,6 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE NoImplicitPrelude   #-}
+{-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 {-
 
@@ -19,12 +19,12 @@ data structures that may assist you in deriving the result. It is not compulsory
 
 module Course.Cheque where
 
-import Course.Core
-import Course.Optional
-import Course.List
-import Course.Functor
-import Course.Apply
-import Course.Bind
+import           Course.Apply
+import           Course.Bind
+import           Course.Core
+import           Course.Functor
+import           Course.List
+import           Course.Optional
 
 -- $setup
 -- >>> :set -XOverloadedStrings

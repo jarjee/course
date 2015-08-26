@@ -2,15 +2,15 @@
 
 module Course.MonadTutorial where
 
-import Control.Category(Category((.)))
-import Control.Monad(Monad(..), (=<<))
-import Data.Eq(Eq)
-import Data.Foldable(foldr)
-import Data.Functor(Functor(fmap))
-import Data.Int(Int)
-import Data.String(IsString(fromString))
-import Prelude(Show)
-import System.IO(IO)
+import           Control.Category (Category ((.)))
+import           Control.Monad    (Monad (..), (=<<))
+import           Data.Eq          (Eq)
+import           Data.Foldable    (foldr)
+import           Data.Functor     (Functor (fmap))
+import           Data.Int         (Int)
+import           Data.String      (IsString (fromString))
+import           Prelude          (Show)
+import           System.IO        (IO)
 
 {-
 
@@ -169,7 +169,7 @@ sequenceIntReader =
 
 data Reader r a =
   Reader (r -> a)
-  
+
 bindReader ::
   (a -> Reader r b)
   -> Reader r a
@@ -197,13 +197,13 @@ sequenceReader =
 
 data IntState a =
   IntState (Int -> (a, Int))
-  
+
 bindIntState ::
   (a -> IntState b)
   -> IntState a
   -> IntState b
 bindIntState f (IntState g) =
-  IntState (\i -> 
+  IntState (\i ->
     let (a, j) = g i
         IntState h = f a
     in h j)
@@ -234,7 +234,7 @@ bindState ::
   -> State s a
   -> State s b
 bindState f (State g) =
-  State (\s -> 
+  State (\s ->
     let (a, t) = g s
         State h = f a
     in h t)
@@ -452,4 +452,4 @@ class BindAndPure f where
   pure ::
     a
     -> f a
-    
+

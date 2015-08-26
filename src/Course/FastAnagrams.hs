@@ -1,12 +1,12 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE NoImplicitPrelude   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module Course.FastAnagrams where
 
-import Course.Core
-import Course.List
-import Course.Functor
-import qualified Data.Set as S
+import           Course.Core
+import           Course.Functor
+import           Course.List
+import qualified Data.Set       as S
 
 -- Return all anagrams of the given string
 -- that appear in the given dictionary file.

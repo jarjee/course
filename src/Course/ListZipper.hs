@@ -1,18 +1,18 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE NoImplicitPrelude   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module Course.ListZipper where
 
-import Course.Core
-import Course.List
-import Course.Optional
-import Course.Functor
-import Course.Apply
-import Course.Applicative
-import Course.Extend
-import Course.Comonad
-import Course.Traversable
-import qualified Prelude as P
+import           Course.Applicative
+import           Course.Apply
+import           Course.Comonad
+import           Course.Core
+import           Course.Extend
+import           Course.Functor
+import           Course.List
+import           Course.Optional
+import           Course.Traversable
+import qualified Prelude            as P
 
 -- $setup
 -- >>> import Test.QuickCheck
@@ -262,7 +262,7 @@ findLeft ::
   -> MaybeListZipper a
 findLeft =
   error "todo: Course.ListZipper#findLeft"
-    
+
 -- | Seek to the right for a location matching a predicate, starting from the
 -- current one.
 --
