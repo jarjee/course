@@ -1,16 +1,17 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE NoImplicitPrelude   #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE RebindableSyntax    #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RebindableSyntax #-}
 
 module Course.FileIO where
 
-import Course.Core
-import Course.Applicative
-import Course.Apply
-import Course.Bind
-import Course.Functor
-import Course.List
+import           Course.Applicative
+import           Course.Apply
+import           Course.Bind
+import           Course.Core
+import           Course.Functor
+import           Course.List
+import           Course.Optional
 
 {-
 
@@ -62,8 +63,7 @@ the contents of c
 -- /Tip:/ use @getArgs@ and @run@
 main ::
   IO ()
-main =
-  error "todo: Course.FileIO#main"
+main = headOr "" <$> getArgs >>= run
 
 type FilePath =
   Chars
@@ -72,31 +72,26 @@ type FilePath =
 run ::
   Chars
   -> IO ()
-run =
-  error "todo: Course.FileIO#run"
+run fileName = readFile fileName >>= getFiles . lines >>= printFiles
 
 getFiles ::
   List FilePath
   -> IO (List (FilePath, Chars))
-getFiles =
-  error "todo: Course.FileIO#getFiles"
+getFiles = sequence . map getFile
 
 getFile ::
   FilePath
   -> IO (FilePath, Chars)
-getFile =
-  error "todo: Course.FileIO#getFile"
+getFile path = (\t -> (path, t)) <$> readFile path
 
 printFiles ::
   List (FilePath, Chars)
   -> IO ()
-printFiles =
-  error "todo: Course.FileIO#printFiles"
+printFiles = void . sequence . map (\(f, c) -> printFile f c)
 
 printFile ::
   FilePath
   -> Chars
   -> IO ()
-printFile =
-  error "todo: Course.FileIO#printFile"
+printFile path content = putStrLn ("============ "++path) >>= \_ -> putStrLn content
 
